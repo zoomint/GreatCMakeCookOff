@@ -87,18 +87,18 @@ if(NOT VIRTUALENV_WAS_CREATED)
         ERROR_VARIABLE error
         RESULT_VARIABLE result
     )
-    if("${result}" STREQUAL "0")
-        string(STRIP sitedir "${sitedir}")
-        get_filename_component(sitedir "${sitedir}" PATH)
-        file(WRITE "${sitedir}/sitecustomize.py"
-            "from site import addsitedir\n"
-            "addsitedir('${PROJECT_BINARY_DIR}/paths')\n"
-        )
-    else()
-        message("error: ${error}")
-        message("out: ${sitedir}")
-        message(FATAL_ERROR "script failed")
-    endif()
+#    if("${result}" STREQUAL "0")
+#        string(STRIP sitedir "${sitedir}")
+#        get_filename_component(sitedir "${sitedir}" PATH)
+#        file(WRITE "${sitedir}/sitecustomize.py"
+#            "from site import addsitedir\n"
+#            "addsitedir('${PROJECT_BINARY_DIR}/paths')\n"
+#        )
+#    else()
+#        message("error: ${error}")
+#        message("out: ${sitedir}")
+#        message(FATAL_ERROR "script failed")
+#    endif()
 
     set(VIRTUALENV_WAS_CREATED TRUE CACHE INTERNAL "Virtualenv has been created")
 endif()
