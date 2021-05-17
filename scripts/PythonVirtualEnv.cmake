@@ -106,26 +106,27 @@ endif()
 function(add_package_to_virtualenv PACKAGE)
     find_python_package(${PACKAGE} LOCAL)
     if(NOT ${PACKAGE}_FOUND)
-        # First check if we have venv in the same directory as python.
-        # Canopy makes things more difficult.
-        get_filename_component(python_bin "${_LOCAL_PYTHON_EXECUTABLE}" PATH)
-        find_program(local_pip_EXECUTABLE pip PATHS "${python_bin}" NO_DEFAULT_PATH)
-        if(local_pip_EXECUTABLE)
-            execute_process(
-                COMMAND
-                    ${local_pip_EXECUTABLE} install --upgrade ${PACKAGE}
-                RESULT_VARIABLE result
-                OUTPUT_VARIABLE output
-                ERROR_VARIABLE error
-            )
-        else()
+#        # First check if we have venv in the same directory as python.
+#        # Canopy makes things more difficult.
+#        get_filename_component(python_bin "${_LOCAL_PYTHON_EXECUTABLE}" PATH)
+#        find_program(local_pip_EXECUTABLE pip PATHS "${python_bin}" NO_DEFAULT_PATH)
+#        message("local_pip_EXECUTABLE: ${local_pip_EXECUTABLE}")
+#        if(local_pip_EXECUTABLE)
+#            execute_process(
+#                COMMAND
+#                    ${local_pip_EXECUTABLE} install --upgrade ${PACKAGE}
+#                RESULT_VARIABLE result
+#                OUTPUT_VARIABLE output
+#                ERROR_VARIABLE error
+#            )
+#        else()
             execute_process(
                 COMMAND ${_LOCAL_PYTHON_EXECUTABLE} -m pip install --upgrade ${PACKAGE}
                 RESULT_VARIABLE result
                 OUTPUT_VARIABLE output
                 ERROR_VARIABLE error
             )
-        endif()
+#        endif()
         if("${result}" STREQUAL "0")
             find_python_package(${PACKAGE} LOCAL)
         else()
